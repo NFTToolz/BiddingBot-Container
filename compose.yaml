@@ -1,0 +1,58 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3003:3003"
+
+    environment:
+      NODE_ENV: development #don't forget to change to production mode
+      MONGODB_URI: mongodb://mongodb:27017/BIDDING_BOT
+      PORT: 3003
+    develop:
+      watch:
+        - action: sync
+          path: ./server/src
+          target: /app/src
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+    depends_on:
+      - mongodb
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: development #don't forget to change to production mode
+      MONGODB_URI: mongodb://mongodb:27017/BIDDING_BOT
+      PORT: 3001
+    develop:
+      watch:
+        - action: sync
+          path: ./client/src
+          target: /app/src
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+    depends_on:
+      - mongodb
+      - server
+
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - mongodb_data:/data/db
+    # Remove the ports section for production
+
+volumes:
+  mongodb_data:

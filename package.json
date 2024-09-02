@@ -1,0 +1,15 @@
+{
+	"name": "bidding-bot",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dc:up": "docker compose up -d",
+		"dc:build": "docker compose up -d --build",
+		"dc:down": "docker compose down",
+		"dc:destroy": "docker compose down --volumes --remove-orphans --timeout 15",
+		"dc:watch": "docker compose up --watch"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
