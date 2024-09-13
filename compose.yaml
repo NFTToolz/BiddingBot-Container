@@ -21,6 +21,7 @@ services:
           path: package.json
     depends_on:
       - mongodb
+      - redis
 
   client:
     build:
@@ -45,13 +46,20 @@ services:
     depends_on:
       - mongodb
       - server
+      - redis
 
   mongodb:
     image: mongo:latest
     restart: unless-stopped
     volumes:
       - mongodb_data:/data/db
-    # Remove the ports section for production
+
+  redis: # Added Redis service
+    image: redis:latest
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
 
 volumes:
   mongodb_data:
+  redis_data:
