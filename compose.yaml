@@ -22,6 +22,8 @@ services:
     depends_on:
       - mongodb
       - redis
+    networks:
+      - my_network
 
   client:
     build:
@@ -31,7 +33,7 @@ services:
     ports:
       - "3001:3001"
     env_file:
-      - ./server/.env
+      - ./client/.env.local
     environment:
       PORT: 3001
     develop:
@@ -47,19 +49,30 @@ services:
       - mongodb
       - server
       - redis
+    networks:
+      - my_network
 
   mongodb:
     image: mongo:latest
     restart: unless-stopped
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - my_network
 
   redis: # Added Redis service
     image: redis:latest
     restart: unless-stopped
     volumes:
       - redis_data:/data
+    hostname: "redis"
+    networks:
+      - my_network
 
 volumes:
   mongodb_data:
   redis_data:
+
+networks:
+  my_network:
+    driver: bridge
