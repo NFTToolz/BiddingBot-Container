@@ -24,6 +24,12 @@ services:
       - redis
     networks:
       - my_network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:3003/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
 
   client:
     build:
