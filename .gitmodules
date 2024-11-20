@@ -1,6 +1,6 @@
 [submodule "server"]
 	path = server
-	url = ./server
+	url = https://github.com/NFTToolz/BiddingBot-Server.git
 [submodule "client"]
 	path = client
-	url = ./client
+	url = https://github.com/NFTToolz/BiddingBot.git
