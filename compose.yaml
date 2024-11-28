@@ -1,8 +1,6 @@
 services:
   server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    image: ayenisholah/bidding-bot-server:latest
     restart: always
     ports:
       - "3003:3003"
@@ -32,9 +30,7 @@ services:
       start_period: 5s
 
   client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: ayenisholah/bidding-bot-client:latest
     restart: always
     ports:
       - "3001:3001"
@@ -66,7 +62,7 @@ services:
     networks:
       - my_network
 
-  redis: # Added Redis service
+  redis:
     image: redis:latest
     restart: unless-stopped
     volumes:
