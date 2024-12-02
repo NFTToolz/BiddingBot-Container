@@ -86,7 +86,6 @@ EOL
 # Create .env file
 cat > .env << EOL
 # Required API Keys
-OPENSEA_API_KEY=${OPENSEA_API_KEY:-""}
 ALCHEMY_API_KEY=${ALCHEMY_API_KEY:-""}
 
 # Database Configuration

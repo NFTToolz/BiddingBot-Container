@@ -1,0 +1,101 @@
+ERROR: WALLET 0X1B8AFD0DE8A9368CE635BE8B9572C65D8F590B21 COULD NOT APPROVE THE MAGICEDEN AS A SPENDER. TASK HAS BEEN STOPPED.
+
+// .sort(() => Math.random() - 0.5);
+QUEUE PAUSED WHILE REMOVING PENDING BIDS...
+JOB COUNT (20) BELOW MINIMUM THRESHOLD (64). REPLENISHING...
+Added batch 3: 64 jobs.
+
+Error formatting bid on Blur: Access token is undefined
+
+Stopping health monitor...
+/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:306
+  for (const timeout of require('timers').getActiveHandles()) {
+                                          ^
+TypeError: require.getActiveHandles is not a function or its return value is not iterable
+    at process.<anonymous> (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:306:43)
+    at Generator.next (<anonymous>)
+    at /Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:31:71
+    at new Promise (<anonymous>)
+    at __awaiter (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:27:12)
+    at process.cleanup (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:298:12)
+    at process.emit (node:events:514:28)
+    at process.emit (node:domain:488:12)
+    at process.emit.sharedData.processEmitHook.installedValue [as emit] (/Users/titan/projects/nfttools/bidding-bot/server/node_modules/@cspotcode/source-map-support/source-map-support.js:745:40)
+^C
+
+Error during remove pending bids for task boredapeyachtclub: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task milady: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task pudgypenguins: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task azuki: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task mutant-ape-yacht-club: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task memelandcaptainz: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task lilpudgys: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task remilio-babies: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task castile-tarot: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task berachain-bit-bears: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task castile-tarot: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task remilio-babies: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task memelandcaptainz: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task lilpudgys: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task mutant-ape-yacht-club: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task azuki: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task pudgypenguins: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task milady: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)
+Error during remove pending bids for task boredapeyachtclub: Error: Remove pending bids timeout
+    at Timeout._onTimeout (/Users/titan/projects/nfttools/bidding-bot/server/src/index.ts:749:37)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)

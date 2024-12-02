@@ -1,9 +1,0 @@
-Batch Processing: Instead of processing each token bid individually, you can batch them together. This means you can send multiple bids in a single request, reducing the number of network calls and improving throughput.
-Rate Limiting: Ensure that your rate limiting is optimized. If you're hitting API limits, you may need to adjust your rate limiter settings or implement a backoff strategy to handle rate limit errors gracefully.
-
-
-Optimize Job Payloads: Ensure that the data being sent in each job is minimal and only includes necessary information. This reduces the payload size and can speed up processing.
-Use Redis Streams: If you're using Redis, consider using Redis Streams for better handling of large volumes of data. Streams can provide better performance for high-throughput scenarios.
-Horizontal Scaling: If your application is running on a single instance, consider scaling horizontally by adding more instances of your worker. This can help distribute the load and improve processing times.
-Monitor and Optimize: Use monitoring tools to track the performance of your queue and workers. Identify bottlenecks and optimize accordingly.
-Here’s a simplified code snippet to illustrate how you might adjust the worker's concurrency and implement batch processing:

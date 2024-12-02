@@ -3,14 +3,14 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"build:push": "chmod +x ./build.sh && ./build.sh",
+		"build:push": "chmod +x ./build.sh && ./build.sh all",
 		"start:docker": "chmod +x ./start.sh && ./start.sh",
 		"start:docker:watch": "chmod +x ./start.sh && ./start.sh --watch",
 		"dc:up": "docker compose up -d",
 		"dc:build": "docker compose up -d --build",
 		"dc:down": "docker compose down",
-		"dc:destroy": "docker compose down --volumes --remove-orphans --timeout 15",
-		"dc:watch": "docker compose build && docker compose up --watch"
+		"dc:destroy": " docker stop $(docker ps -aq) || true sleep 3 docker compose down --volumes --remove-orphans --timeout 15 && docker system prune -af --volumes",
+		"dc:watch": "docker compose -f compose.prod.yaml build && docker compose -f compose.prod.yaml up --watch"
 	},
 	"keywords": [],
 	"author": "",
