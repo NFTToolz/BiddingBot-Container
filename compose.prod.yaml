@@ -38,6 +38,7 @@ services:
       - CLIENT_URL=http://localhost:3001/
       - NEXT_PUBLIC_CLIENT_URL=http://localhost:3001/
       - NEXT_PUBLIC_SERVER_WEBSOCKET=ws://localhost:3003
+      - ALCHEMY_API_KEY=0rk2kbu11E5PDyaUqX1JjrNKwG7s4ty5
       - PORT=3001
     depends_on:
       - mongodb
