@@ -6,33 +6,34 @@ WORKDIR /app
 FROM base as server-builder
 WORKDIR /app/server
 COPY server/package*.json ./
-RUN npm install
+RUN npm ci --only=production
 COPY server .
 RUN npm run build
-RUN pwd && ls -la dist/
 
 # Build client
 FROM base as client-builder
 WORKDIR /app/client
 COPY client/package*.json ./
-RUN npm install
+RUN npm ci --only=production
 COPY client .
 RUN npm run build
 
-# Final image
-FROM base
+# Production image
+FROM node:18-alpine
 WORKDIR /app
 
-# Copy server with its build output
+# Copy only necessary files from builders
 COPY --from=server-builder /app/server/dist ./server/dist
 COPY --from=server-builder /app/server/package*.json ./server/
-COPY --from=server-builder /app/server/node_modules ./server/node_modules
-
-# Copy client with its build output
 COPY --from=client-builder /app/client/.next ./client/.next
-COPY --from=client-builder /app/client/public ./client/public
 COPY --from=client-builder /app/client/package*.json ./client/
-COPY --from=client-builder /app/client/node_modules ./client/node_modules
+
+# Install only production dependencies
+WORKDIR /app/server
+RUN npm ci --only=production
+WORKDIR /app/client
+RUN npm ci --only=production
+WORKDIR /app
 
 # Copy start script
 COPY start.sh .

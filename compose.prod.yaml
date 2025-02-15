@@ -6,23 +6,17 @@ services:
     ports:
       - "3003:3003"
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/BIDDING_BOT
-      - CLIENT_URL=http://localhost:3001/
-      - ALCHEMY_API_KEY=0rk2kbu11E5PDyaUqX1JjrNKwG7s4ty5
-      - REDIS_URI=redis://redis:6379
-      - PORT=3003
+      PORT: 3003
+      REDIS_NODES: '[{"host":"redis-node-1","port":6379},{"host":"redis-node-2","port":6379},{"host":"redis-node-3","port":6379},{"host":"redis-node-4","port":6379},{"host":"redis-node-5","port":6379},{"host":"redis-node-6","port":6379},{"host":"redis-node-7","port":6379},{"host":"redis-node-8","port":6379},{"host":"redis-node-9","port":6379}]'
+      REDIS_NET_MAP: '{"redis-node-1:6379":{"host":"redis-node-1","port":6379},"redis-node-2:6379":{"host":"redis-node-2","port":6379},"redis-node-3:6379":{"host":"redis-node-3","port":6379},"redis-node-4:6379":{"host":"redis-node-4","port":6379},"redis-node-5:6379":{"host":"redis-node-5","port":6379},"redis-node-6:6379":{"host":"redis-node-6","port":6379},"redis-node-7:6379":{"host":"redis-node-7","port":6379},"redis-node-8:6379":{"host":"redis-node-8","port":6379},"redis-node-9:6379":{"host":"redis-node-9","port":6379}}'
+
+      ALCHEMY_API_KEY: "Rt6ZtAeAJ0TzeLr85vIsnz1nqiGlktdd"
+      MONGODB_URI: "mongodb://mongodb:27017/BIDDING_BOT"
     depends_on:
       - mongodb
-      - redis
+      - redis-cluster-init
     networks:
       - my_network
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:3003/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
-
   client:
     image: ayenisholah/bidding-bot-client:latest
     platform: linux/amd64
@@ -30,20 +24,18 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - REDIS_URI=redis://redis:6379
-      - MONGODB_URI=mongodb://mongodb:27017/BIDDING_BOT
-      - JWT_SECRET=NFTTOOLS TO THE MOON
-      - EMAIL_USERNAME=ayenisholah@gmail.com
-      - EMAIL_PASSWORD=rvwn mtuh hhpp lqrq
-      - CLIENT_URL=http://localhost:3001/
-      - NEXT_PUBLIC_CLIENT_URL=http://localhost:3001/
-      - NEXT_PUBLIC_SERVER_WEBSOCKET=ws://localhost:3003
-      - ALCHEMY_API_KEY=0rk2kbu11E5PDyaUqX1JjrNKwG7s4ty5
-      - PORT=3001
+      PORT: 3001
+      REDIS_NODES: '[{"host":"redis-node-1","port":6379},{"host":"redis-node-2","port":6379},{"host":"redis-node-3","port":6379},{"host":"redis-node-4","port":6379},{"host":"redis-node-5","port":6379},{"host":"redis-node-6","port":6379},{"host":"redis-node-7","port":6379},{"host":"redis-node-8","port":6379},{"host":"redis-node-9","port":6379}]'
+      REDIS_NET_MAP: '{"redis-node-1:6379":{"host":"redis-node-1","port":6379},"redis-node-2:6379":{"host":"redis-node-2","port":6379},"redis-node-3:6379":{"host":"redis-node-3","port":6379},"redis-node-4:6379":{"host":"redis-node-4","port":6379},"redis-node-5:6379":{"host":"redis-node-5","port":6379},"redis-node-6:6379":{"host":"redis-node-6","port":6379},"redis-node-7:6379":{"host":"redis-node-7","port":6379},"redis-node-8:6379":{"host":"redis-node-8","port":6379},"redis-node-9:6379":{"host":"redis-node-9","port":6379}}'
+      ALCHEMY_API_KEY: "Rt6ZtAeAJ0TzeLr85vIsnz1nqiGlktdd"
+      CLIENT_URL: "http://localhost:3001/"
+      NEXT_PUBLIC_CLIENT_URL: "http://localhost:3001/"
+      NEXT_PUBLIC_SERVER_WEBSOCKET: "ws://localhost:3003"
+      MONGODB_URI: "mongodb://mongodb:27017/BIDDING_BOT"
     depends_on:
       - mongodb
       - server
-      - redis
+      - redis-cluster-init
     networks:
       - my_network
 
@@ -55,18 +47,183 @@ services:
     networks:
       - my_network
 
-  redis:
+  redis-node-1:
     image: redis:latest
-    restart: unless-stopped
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-1
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
     volumes:
-      - redis_data:/data
-    hostname: "redis"
+      - redis_data_1:/data
+    networks:
+      - my_network
+
+  redis-node-2:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-2
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_2:/data
+    networks:
+      - my_network
+
+  redis-node-3:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-3
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_3:/data
+    networks:
+      - my_network
+
+  redis-node-4:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-4
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_4:/data
+    networks:
+      - my_network
+
+  redis-node-5:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-5
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_5:/data
+    networks:
+      - my_network
+
+  redis-node-6:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-6
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_6:/data
+    networks:
+      - my_network
+
+  redis-node-7:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-7
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_7:/data
+    networks:
+      - my_network
+
+  redis-node-8:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-8
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_8:/data
+    networks:
+      - my_network
+
+  redis-node-9:
+    image: redis:latest
+    command: redis-server --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --appendonly yes
+      --bind 0.0.0.0
+      --cluster-announce-ip redis-node-9
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    volumes:
+      - redis_data_9:/data
+    networks:
+      - my_network
+
+  redis-cluster-init:
+    image: redis:latest
+    command: >
+      /bin/sh -c '
+        echo "Waiting for Redis nodes..." &&
+        sleep 15 &&
+        redis-cli --cluster create redis-node-1:6379 redis-node-2:6379 redis-node-3:6379 redis-node-4:6379 redis-node-5:6379 redis-node-6:6379 redis-node-7:6379 redis-node-8:6379 redis-node-9:6379 --cluster-replicas 2 --cluster-yes &&
+        echo "Cluster initialization complete"
+      '
+    depends_on:
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+      - redis-node-4
+      - redis-node-5
+      - redis-node-6
+      - redis-node-7
+      - redis-node-8
+      - redis-node-9
     networks:
       - my_network
 
 volumes:
   mongodb_data:
-  redis_data:
+  redis_data_1:
+  redis_data_2:
+  redis_data_3:
+  redis_data_4:
+  redis_data_5:
+  redis_data_6:
+  redis_data_7:
+  redis_data_8:
+  redis_data_9:
 
 networks:
   my_network:

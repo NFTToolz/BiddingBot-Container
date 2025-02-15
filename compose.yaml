@@ -8,6 +8,10 @@ services:
       - ./server/.env
     environment:
       PORT: 3003
+      REDIS_NET_MAP: '{"redis-node-1:6379":{"host":"127.0.0.1","port":8001},"redis-node-2:6379":{"host":"127.0.0.1","port":8002},"redis-node-3:6379":{"host":"127.0.0.1","port":8003},"redis-node-4:6379":{"host":"127.0.0.1","port":8004},"redis-node-5:6379":{"host":"127.0.0.1","port":8005},"redis-node-6:6379":{"host":"127.0.0.1","port":8006},"redis-node-7:6379":{"host":"127.0.0.1","port":8007},"redis-node-8:6379":{"host":"127.0.0.1","port":8008},"redis-node-9:6379":{"host":"127.0.0.1","port":8009}}'
+      REDIS_NODES: '[{"host":"127.0.0.1","port":8001},{"host":"127.0.0.1","port":8002},{"host":"127.0.0.1","port":8003},{"host":"127.0.0.1","port":8004},{"host":"127.0.0.1","port":8005},{"host":"127.0.0.1","port":8006},{"host":"127.0.0.1","port":8007},{"host":"127.0.0.1","port":8008},{"host":"127.0.0.1","port":8009}]'
+      ALCHEMY_API_KEY: "Rt6ZtAeAJ0TzeLr85vIsnz1nqiGlktdd"
+      MONGODB_URI: "mongodb://localhost:27017/BIDDING_BOT"
     develop:
       watch:
         - action: sync
@@ -38,6 +42,13 @@ services:
       - ./client/.env.local
     environment:
       PORT: 3001
+      REDIS_NET_MAP: '{"redis-node-1:6379":{"host":"127.0.0.1","port":8001},"redis-node-2:6379":{"host":"127.0.0.1","port":8002},"redis-node-3:6379":{"host":"127.0.0.1","port":8003},"redis-node-4:6379":{"host":"127.0.0.1","port":8004},"redis-node-5:6379":{"host":"127.0.0.1","port":8005},"redis-node-6:6379":{"host":"127.0.0.1","port":8006},"redis-node-7:6379":{"host":"127.0.0.1","port":8007},"redis-node-8:6379":{"host":"127.0.0.1","port":8008},"redis-node-9:6379":{"host":"127.0.0.1","port":8009}}'
+      REDIS_NODES: '[{"host":"127.0.0.1","port":8001},{"host":"127.0.0.1","port":8002},{"host":"127.0.0.1","port":8003},{"host":"127.0.0.1","port":8004},{"host":"127.0.0.1","port":8005},{"host":"127.0.0.1","port":8006},{"host":"127.0.0.1","port":8007},{"host":"127.0.0.1","port":8008},{"host":"127.0.0.1","port":8009}]'
+      ALCHEMY_API_KEY: "Rt6ZtAeAJ0TzeLr85vIsnz1nqiGlktdd"
+      CLIENT_URL: "http://localhost:3001/"
+      NEXT_PUBLIC_CLIENT_URL: "http://localhost:3001/"
+      NEXT_PUBLIC_SERVER_WEBSOCKET: "ws://localhost:3003"
+      MONGODB_URI: "mongodb://localhost:27017/BIDDING_BOT"
     develop:
       watch:
         - action: sync
@@ -62,18 +73,107 @@ services:
     networks:
       - my_network
 
-  redis:
+  redis-node-1:
     image: redis:latest
-    restart: unless-stopped
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8001:6379"
     volumes:
-      - redis_data:/data
-    hostname: "redis"
+      - redis_node_1_data:/data
+    networks:
+      - my_network
+
+  redis-node-2:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8002:6379"
+    volumes:
+      - redis_node_2_data:/data
+    networks:
+      - my_network
+
+  redis-node-3:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8003:6379"
+    volumes:
+      - redis_node_3_data:/data
+    networks:
+      - my_network
+
+  redis-node-4:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8004:6379"
+    volumes:
+      - redis_node_4_data:/data
+    networks:
+      - my_network
+
+  redis-node-5:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8005:6379"
+    volumes:
+      - redis_node_5_data:/data
+    networks:
+      - my_network
+
+  redis-node-6:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8006:6379"
+    volumes:
+      - redis_node_6_data:/data
+    networks:
+      - my_network
+
+  redis-node-7:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8007:6379"
+    volumes:
+      - redis_node_7_data:/data
+    networks:
+      - my_network
+
+  redis-node-8:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8008:6379"
+    volumes:
+      - redis_node_8_data:/data
+    networks:
+      - my_network
+
+  redis-node-9:
+    image: redis:latest
+    command: redis-server --port 6379 --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000
+    ports:
+      - "8009:6379"
+    volumes:
+      - redis_node_9_data:/data
     networks:
       - my_network
 
 volumes:
   mongodb_data:
-  redis_data:
+  redis_node_1_data:
+  redis_node_2_data:
+  redis_node_3_data:
+  redis_node_4_data:
+  redis_node_5_data:
+  redis_node_6_data:
+  redis_node_7_data:
+  redis_node_8_data:
+  redis_node_9_data:
 
 networks:
   my_network:

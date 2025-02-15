@@ -1,7 +1,7 @@
 {
 	"name": "bidding-bot",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A Docker-based bidding bot application with automated build and deployment scripts. Supports development and production environments with watch mode capabilities for real-time updates and container management.",
 	"scripts": {
 		"build:push": "chmod +x ./build.sh && ./build.sh all",
 		"start:docker": "chmod +x ./start.sh && ./start.sh",
@@ -10,7 +10,8 @@
 		"dc:build": "docker compose up -d --build",
 		"dc:down": "docker compose down",
 		"dc:destroy": "docker stop $(docker ps -aq) || true sleep 3 docker compose down --volumes --remove-orphans --timeout 15 && docker system prune -af --volumes",
-		"dc:watch": "docker compose -f compose.prod.yaml build && docker compose -f compose.prod.yaml up --watch"
+		"dc:watch": "docker compose -f compose.prod.yaml build  && docker compose -f compose.prod.yaml up --watch",
+		"push:apps": "chmod +x ./build.sh && ./build.sh push"
 	},
 	"keywords": [],
 	"author": "",

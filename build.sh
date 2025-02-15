@@ -1,45 +1,34 @@
 #!/bin/bash
-REGISTRY="ayenisholah"   
-PROJECT=""           
-VERSION="latest"
+REGISTRY="ayenisholah"
+VERSION="latest"  # Allow version override
 
-# Build images
-docker build -t $REGISTRY/bidding-bot-server:$VERSION ./server
-docker build -t $REGISTRY/bidding-bot-client:$VERSION ./client
+# Build and tag both images
+build_images() {
+    echo "Building Docker images..."
+    docker build -t $REGISTRY/bidding-bot-server:$VERSION -f Dockerfile .
+    docker build -t $REGISTRY/bidding-bot-client:$VERSION -f client/Dockerfile ./client
+}
 
-# Push images to registry
-docker push $REGISTRY/bidding-bot-server:$VERSION
-docker push $REGISTRY/bidding-bot-client:$VERSION
-
-
-#!/bin/bash
-REGISTRY="ayenisholah"   
-VERSION="latest"
+# Push both images
+push_images() {
+    echo "Pushing Docker images..."
+    docker push $REGISTRY/bidding-bot-server:$VERSION
+    docker push $REGISTRY/bidding-bot-client:$VERSION
+}
 
 case "$1" in
     "build")
-        echo "Building combined image..."
-        docker build -t $REGISTRY/bidding-bot-server:$VERSION ./server
-        docker build -t $REGISTRY/bidding-bot-client:$VERSION ./client
-        docker build -t $REGISTRY/bidding-bot:$VERSION .
+        build_images
         ;;
     "push")
-        echo "Pushing combined image..."
-        docker push $REGISTRY/bidding-bot-server:$VERSION
-        docker push $REGISTRY/bidding-bot-client:$VERSION
-        docker push $REGISTRY/bidding-bot:$VERSION
+        push_images
         ;;
     "all")
-        echo "Building and pushing combined image..."
-        docker build -t $REGISTRY/bidding-bot-server:$VERSION ./server
-        docker build -t $REGISTRY/bidding-bot-client:$VERSION ./client
-        docker build -t $REGISTRY/bidding-bot:$VERSION .
-        docker push $REGISTRY/bidding-bot-server:$VERSION
-        docker push $REGISTRY/bidding-bot-client:$VERSION
-        docker push $REGISTRY/bidding-bot:$VERSION
+        build_images
+        push_images
         ;;
     *)
-        echo "Usage: $0 {build|push|all}"
+        echo "Usage: $0 {build|push|all} [version]"
         exit 1
         ;;
 esac
